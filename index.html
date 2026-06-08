@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UC Fit Compass</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home">UC Fit Compass</a>
+      <nav>
+        <a href="#home">Home 首页</a>
+        <a href="#explorer">Campus Explorer 校区探索</a>
+        <a href="#major">Major Finder 专业匹配</a>
+        <a href="#fit">Personal Fit 个人适配</a>
+        <a href="#compare">Compare 对比</a>
+        <a href="#sources">Disclaimer 免责声明</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="page hero">
+        <div>
+          <p class="eyebrow">University of California decision helper</p>
+          <h1>Find the UC campus that fits your goals and life.</h1>
+          <p class="lead">
+            帮助高中生从地理位置、专业强项、录取难度参考、职业方向和个人适配度比较 9 所 UC 本科校区。
+          </p>
+          <p class="notice">
+            This is not an official admissions predictor. 这不是官方录取预测工具。数据为 prototype reference data，请用 UC 官网核实。
+          </p>
+          <div class="actions">
+            <a class="button" href="#explorer">Explore Campuses</a>
+            <a class="button secondary" href="#major">Find by Major</a>
+            <a class="button secondary" href="#fit">Personal Fit</a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>What you can compare</h2>
+          <ul>
+            <li>Location 地理位置</li>
+            <li>Campus vibe 校园氛围</li>
+            <li>Major strengths 专业强项</li>
+            <li>Admission difficulty 录取难度参考</li>
+            <li>Personal fit 个人适配</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="explorer" class="page">
+        <div class="section-head">
+          <p class="eyebrow">9 undergraduate UC campuses</p>
+          <h1>Campus Explorer 校区探索</h1>
+          <p class="lead">每张卡片都用简单语言总结位置、气质、强项和可能顾虑。</p>
+        </div>
+        <div id="campusGrid" class="cards"></div>
+      </section>
+
+      <section id="major" class="page">
+        <div class="section-head">
+          <p class="eyebrow">Prototype recommendation</p>
+          <h1>Major Finder 专业匹配</h1>
+          <p class="lead">选择一个方向，查看比较适合关注的 UC 校区。</p>
+        </div>
+        <label class="input-label" for="majorSelect">Select a field 选择专业方向</label>
+        <select id="majorSelect"></select>
+        <div id="majorResults" class="cards results"></div>
+      </section>
+
+      <section id="fit" class="page">
+        <div class="section-head">
+          <p class="eyebrow">Personal fit helper</p>
+          <h1>Personal Fit Finder 个人适配工具</h1>
+          <p class="lead">输入你的大概背景和偏好，生成 Reach、Target、Less Selective Reference 和 Lifestyle Fit 参考。</p>
+        </div>
+
+        <div class="notice">
+          These categories are not admissions predictions. 这些分类不是录取预测，只是帮助你整理选校清单。
+        </div>
+
+        <div class="fit-form">
+          <label>
+            GPA range GPA 范围
+            <select id="fitGpa">
+              <option value="top">4.15+ weighted / 加权 4.15+</option>
+              <option value="strong">4.00-4.14 weighted / 加权 4.00-4.14</option>
+              <option value="solid">3.80-3.99 weighted / 加权 3.80-3.99</option>
+              <option value="building">Below 3.80 weighted / 加权 3.80 以下</option>
+            </select>
+          </label>
+
+          <label>
+            Intended major 目标专业
+            <select id="fitMajor"></select>
+          </label>
+
+          <label>
+            Preferred environment 喜欢的环境
+            <select id="fitEnvironment">
+              <option value="city">Big city / 大城市</option>
+              <option value="suburban">Suburban and organized / 郊区、安全、有规划</option>
+              <option value="college-town">College town / 大学校城</option>
+              <option value="coastal">Coastal / 海边</option>
+              <option value="nature">Nature and quiet / 自然、安静</option>
+            </select>
+          </label>
+
+          <label>
+            Budget concern 预算压力
+            <select id="fitBudget">
+              <option value="high">High concern / 很在意费用</option>
+              <option value="medium">Some concern / 有点在意</option>
+              <option value="low">Low concern / 不太在意</option>
+            </select>
+          </label>
+
+          <label>
+            Preferred campus vibe 喜欢的校园氛围
+            <select id="fitVibe">
+              <option value="balanced">Balanced / 平衡</option>
+              <option value="competitive">Challenging / 有挑战</option>
+              <option value="social">Social / 社交活跃</option>
+              <option value="supportive">Supportive / 支持性强</option>
+              <option value="creative">Creative / 创意自由</option>
+              <option value="research">Research-focused / 研究导向</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="fitButton" type="button">Generate Fit List 生成适配清单</button>
+          <button id="copyFitButton" class="secondary" type="button">Copy My UC Summary 复制我的 UC 总结</button>
+        </div>
+        <p id="copyStatus" class="copy-status"></p>
+        <div id="fitResults" class="fit-results"></div>
+        <div class="notice fit-note">
+          <strong>How Personal Fit Works：</strong>
+          This tool compares the selected GPA band with campus difficulty labels, then adds lifestyle fit based on major, environment, budget, and campus vibe.
+          These labels are planning references, not admissions predictions.
+        </div>
+      </section>
+
+      <section id="compare" class="page">
+        <div class="section-head">
+          <p class="eyebrow">Side-by-side view</p>
+          <h1>Compare Campuses 校区对比</h1>
+          <p class="lead">选择 2-3 所 UC，横向比较位置、强项、难度和适配度。</p>
+        </div>
+        <div id="compareChoices" class="choice-grid"></div>
+        <div class="actions">
+          <button id="copyCompareButton" type="button">Copy Compare Summary 复制对比总结</button>
+        </div>
+        <p id="compareCopyStatus" class="copy-status"></p>
+        <div id="compareTable" class="compare-table"></div>
+      </section>
+
+      <section id="sources" class="page">
+        <div class="section-head">
+          <p class="eyebrow">Read before deciding</p>
+          <h1>Data Sources / Disclaimer 数据来源与免责声明</h1>
+        </div>
+        <div class="notice large">
+          <p>
+            This MVP uses prototype reference data first. It is a decision helper, not an official admissions predictor.
+            本 MVP 先使用 prototype reference data，是决策辅助工具，不是官方录取预测器。
+          </p>
+          <p>
+            Overall admit rates and admitted GPA ranges are campus-level references from UC first-year admit data, not major admit rates.
+            总体录取率和录取 GPA 范围是校区层面参考，不是专业录取率。
+          </p>
+          <p>
+            Admitted GPA range is not a guarantee. Minimum GPA requirement is separate from admitted GPA range.
+            录取 GPA 范围不是保证；最低 GPA 要求和录取学生 GPA 范围是两回事。
+          </p>
+          <p>
+            Do not treat rankings, difficulty labels, or career outcomes as exact. 不要把排名、难度标签或就业结果当成精确结论。
+          </p>
+          <p>
+            Students should verify majors, requirements, admit data, costs, and outcomes with official UC campus websites.
+            学生应通过 UC 官方网站核实专业、要求、录取数据、费用和就业信息。
+          </p>
+          <p>
+            Last updated: June 2026. Data should be rechecked before making application decisions.
+            最后更新：2026 年 6 月。做申请决定前请重新核实数据。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><strong>Built by Yuhao Chen.</strong></p>
+      <p>UC Fit Compass is a bilingual UC decision helper prototype for high school students.</p>
+      <p>Data is for reference only. Please verify details with official UC sources.</p>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
