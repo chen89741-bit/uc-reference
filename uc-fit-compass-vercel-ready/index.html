@@ -39,6 +39,26 @@ select {
   backdrop-filter: blur(10px);
 }
 
+.language-toggle {
+  display: inline-flex;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.language-toggle button {
+  min-height: 34px;
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.language-toggle .active-language {
+  color: #ffffff;
+  background: #0f766e;
+}
+
 .brand,
 nav a,
 .button {
@@ -87,12 +107,21 @@ p {
   margin-top: 0;
 }
 
-h1 {
+.hero-title,
+.section-title {
   max-width: 820px;
   margin-bottom: 16px;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.hero-title {
   font-size: clamp(34px, 7vw, 68px);
   line-height: 1.04;
-  letter-spacing: 0;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 44px);
 }
 
 .lead {
@@ -177,6 +206,10 @@ button {
 .card {
   display: flex;
   flex-direction: column;
+}
+
+.program-card {
+  gap: 2px;
 }
 
 .campus-image {
@@ -466,6 +499,14 @@ tr:last-child td {
     flex-direction: column;
   }
 
+  .language-toggle {
+    width: 100%;
+  }
+
+  .language-toggle button {
+    flex: 1;
+  }
+
   .cards {
     grid-template-columns: 1fr;
   }
@@ -475,8 +516,12 @@ tr:last-child td {
     grid-template-columns: 1fr;
   }
 
-  h1 {
+  .hero-title {
     font-size: 38px;
+  }
+
+  .section-title {
+    font-size: 30px;
   }
 }
 
@@ -486,146 +531,164 @@ tr:last-child td {
     <header class="site-header">
       <a class="brand" href="#home">UC Fit Compass</a>
       <nav>
-        <a href="#home">Home 首页</a>
-        <a href="#explorer">Campus Explorer 校区探索</a>
-        <a href="#major">Major Finder 专业匹配</a>
-        <a href="#fit">Personal Fit 个人适配</a>
-        <a href="#compare">Compare 对比</a>
-        <a href="#sources">Disclaimer 免责声明</a>
+        <a href="#home" data-i18n="navHome">Home</a>
+        <a href="#explorer" data-i18n="navExplorer">Campus Explorer</a>
+        <a href="#major" data-i18n="navMajor">Major Finder</a>
+        <a href="#programs" data-i18n="navPrograms">Program Explorer</a>
+        <a href="#fit" data-i18n="navFit">Personal Fit</a>
+        <a href="#compare" data-i18n="navCompare">Compare</a>
+        <a href="#sources" data-i18n="navSources">Disclaimer</a>
       </nav>
+      <div class="language-toggle" aria-label="Language switcher">
+        <button class="secondary active-language" type="button" data-lang="en">English</button>
+        <button class="secondary" type="button" data-lang="zh">中文</button>
+        <button class="secondary" type="button" data-lang="bi">Bilingual 双语</button>
+      </div>
     </header>
 
     <main>
       <section id="home" class="page hero">
         <div>
-          <p class="eyebrow">University of California decision helper</p>
-          <h1>Find the UC campus that fits your goals and life.</h1>
-          <p class="lead">
-            帮助高中生从地理位置、专业强项、录取难度参考、职业方向和个人适配度比较 9 所 UC 本科校区。
+          <p class="eyebrow" data-i18n="heroEyebrow">University of California decision helper</p>
+          <h1 class="hero-title" data-i18n="heroTitle">Find the UC campus that fits your goals and life.</h1>
+          <p class="lead" data-i18n="heroLead">
+            Compare the 9 undergraduate UC campuses by location, major strengths, admission difficulty reference, career direction, and personal fit.
           </p>
-          <p class="notice">
-            This is not an official admissions predictor. 这不是官方录取预测工具。数据为 prototype reference data，请用 UC 官网核实。
+          <p class="notice" data-i18n="heroNotice">
+            This is not an official admissions predictor. Data is prototype reference data. Verify details with official UC sources.
           </p>
           <div class="actions">
-            <a class="button" href="#explorer">Explore Campuses</a>
-            <a class="button secondary" href="#major">Find by Major</a>
-            <a class="button secondary" href="#fit">Personal Fit</a>
+            <a class="button" href="#explorer" data-i18n="btnExplore">Explore Campuses</a>
+            <a class="button secondary" href="#major" data-i18n="btnMajor">Find by Major</a>
+            <a class="button secondary" href="#fit" data-i18n="btnFit">Personal Fit</a>
           </div>
         </div>
         <aside class="hero-panel">
-          <h2>What you can compare</h2>
+          <h2 data-i18n="heroPanelTitle">What you can compare</h2>
           <ul>
-            <li>Location 地理位置</li>
-            <li>Campus vibe 校园氛围</li>
-            <li>Major strengths 专业强项</li>
-            <li>Admission difficulty 录取难度参考</li>
-            <li>Personal fit 个人适配</li>
+            <li data-i18n="heroItemLocation">Location</li>
+            <li data-i18n="heroItemVibe">Campus vibe</li>
+            <li data-i18n="heroItemStrengths">Major strengths</li>
+            <li data-i18n="heroItemDifficulty">Admission difficulty</li>
+            <li data-i18n="heroItemFit">Personal fit</li>
           </ul>
         </aside>
       </section>
 
       <section id="explorer" class="page">
         <div class="section-head">
-          <p class="eyebrow">9 undergraduate UC campuses</p>
-          <h1>Campus Explorer 校区探索</h1>
-          <p class="lead">每张卡片都用简单语言总结位置、气质、强项和可能顾虑。</p>
+          <p class="eyebrow" data-i18n="explorerEyebrow">9 undergraduate UC campuses</p>
+          <h1 class="section-title" data-i18n="explorerTitle">Campus Explorer</h1>
+          <p class="lead" data-i18n="explorerLead">Each card summarizes location, vibe, strengths, and possible concerns in simple language.</p>
         </div>
         <div id="campusGrid" class="cards"></div>
       </section>
 
       <section id="major" class="page">
         <div class="section-head">
-          <p class="eyebrow">Prototype recommendation</p>
-          <h1>Major Finder 专业匹配</h1>
-          <p class="lead">选择一个方向，查看比较适合关注的 UC 校区。</p>
+          <p class="eyebrow" data-i18n="majorEyebrow">Prototype recommendation</p>
+          <h1 class="section-title" data-i18n="majorTitle">Major Finder</h1>
+          <p class="lead" data-i18n="majorLead">Choose a field and see UC campuses worth comparing.</p>
         </div>
-        <label class="input-label" for="majorSelect">Select a field 选择专业方向</label>
+        <label class="input-label" for="majorSelect" data-i18n="majorLabel">Select a field</label>
         <select id="majorSelect"></select>
         <div id="majorResults" class="cards results"></div>
       </section>
 
+      <section id="programs" class="page">
+        <div class="section-head">
+          <p class="eyebrow" data-i18n="programEyebrow">Prototype program comparison</p>
+          <h1 class="section-title" data-i18n="programTitle">Program Explorer</h1>
+          <p class="lead" data-i18n="programLead">Compare academic program fields, related UC campuses, example programs, and what to verify before applying.</p>
+        </div>
+        <div class="notice" data-i18n="programNotice">
+          Program availability, college/school structure, and major requirements can change.
+          Verify every program on official UC campus websites before applying.
+        </div>
+        <div id="programGrid" class="cards results"></div>
+      </section>
+
       <section id="fit" class="page">
         <div class="section-head">
-          <p class="eyebrow">Personal fit helper</p>
-          <h1>Personal Fit Finder 个人适配工具</h1>
-          <p class="lead">输入你的大概背景和偏好，生成 Reach、Target、Less Selective Reference 和 Lifestyle Fit 参考。</p>
+          <p class="eyebrow" data-i18n="fitEyebrow">Personal fit helper</p>
+          <h1 class="section-title" data-i18n="fitTitle">Personal Fit Finder</h1>
+          <p class="lead" data-i18n="fitLead">Generate a UC shortlist based on GPA, major, environment, budget, and campus vibe.</p>
         </div>
 
-        <div class="notice">
-          These categories are not admissions predictions. 这些分类不是录取预测，只是帮助你整理选校清单。
+        <div class="notice" data-i18n="fitNotice">
+          These categories are not admissions predictions. They are planning references for building a UC list.
         </div>
 
         <div class="fit-form">
           <label>
-            GPA range GPA 范围
+            <span data-i18n="fitGpaLabel">GPA range</span>
             <select id="fitGpa">
-              <option value="top">4.15+ weighted / 加权 4.15+</option>
-              <option value="strong">4.00-4.14 weighted / 加权 4.00-4.14</option>
-              <option value="solid">3.80-3.99 weighted / 加权 3.80-3.99</option>
-              <option value="building">Below 3.80 weighted / 加权 3.80 以下</option>
+              <option value="top" data-i18n="gpaTop">4.15+ weighted</option>
+              <option value="strong" data-i18n="gpaStrong">4.00-4.14 weighted</option>
+              <option value="solid" data-i18n="gpaSolid">3.80-3.99 weighted</option>
+              <option value="building" data-i18n="gpaBuilding">Below 3.80 weighted</option>
             </select>
           </label>
 
           <label>
-            Intended major 目标专业
+            <span data-i18n="fitMajorLabel">Intended major</span>
             <select id="fitMajor"></select>
           </label>
 
           <label>
-            Preferred environment 喜欢的环境
+            <span data-i18n="fitEnvironmentLabel">Preferred environment</span>
             <select id="fitEnvironment">
-              <option value="city">Big city / 大城市</option>
-              <option value="suburban">Suburban and organized / 郊区、安全、有规划</option>
-              <option value="college-town">College town / 大学校城</option>
-              <option value="coastal">Coastal / 海边</option>
-              <option value="nature">Nature and quiet / 自然、安静</option>
+              <option value="city" data-i18n="envCity">Big city</option>
+              <option value="suburban" data-i18n="envSuburban">Suburban and organized</option>
+              <option value="college-town" data-i18n="envCollegeTown">College town</option>
+              <option value="coastal" data-i18n="envCoastal">Coastal</option>
+              <option value="nature" data-i18n="envNature">Nature and quiet</option>
             </select>
           </label>
 
           <label>
-            Budget concern 预算压力
+            <span data-i18n="fitBudgetLabel">Budget concern</span>
             <select id="fitBudget">
-              <option value="high">High concern / 很在意费用</option>
-              <option value="medium">Some concern / 有点在意</option>
-              <option value="low">Low concern / 不太在意</option>
+              <option value="high" data-i18n="budgetHigh">High concern</option>
+              <option value="medium" data-i18n="budgetMedium">Some concern</option>
+              <option value="low" data-i18n="budgetLow">Low concern</option>
             </select>
           </label>
 
           <label>
-            Preferred campus vibe 喜欢的校园氛围
+            <span data-i18n="fitVibeLabel">Preferred campus vibe</span>
             <select id="fitVibe">
-              <option value="balanced">Balanced / 平衡</option>
-              <option value="competitive">Challenging / 有挑战</option>
-              <option value="social">Social / 社交活跃</option>
-              <option value="supportive">Supportive / 支持性强</option>
-              <option value="creative">Creative / 创意自由</option>
-              <option value="research">Research-focused / 研究导向</option>
+              <option value="balanced" data-i18n="vibeBalanced">Balanced</option>
+              <option value="competitive" data-i18n="vibeCompetitive">Challenging</option>
+              <option value="social" data-i18n="vibeSocial">Social</option>
+              <option value="supportive" data-i18n="vibeSupportive">Supportive</option>
+              <option value="creative" data-i18n="vibeCreative">Creative</option>
+              <option value="research" data-i18n="vibeResearch">Research-focused</option>
             </select>
           </label>
         </div>
 
         <div class="actions">
-          <button id="fitButton" type="button">Generate Fit List 生成适配清单</button>
-          <button id="copyFitButton" class="secondary" type="button">Copy My UC Summary 复制我的 UC 总结</button>
+          <button id="fitButton" type="button" data-i18n="fitButton">Generate Fit List</button>
+          <button id="copyFitButton" class="secondary" type="button" data-i18n="copyFitButton">Copy My UC Summary</button>
         </div>
         <p id="copyStatus" class="copy-status"></p>
         <div id="fitResults" class="fit-results"></div>
         <div class="notice fit-note">
-          <strong>How Personal Fit Works：</strong>
-          This tool compares the selected GPA band with campus difficulty labels, then adds lifestyle fit based on major, environment, budget, and campus vibe.
-          These labels are planning references, not admissions predictions.
+          <strong data-i18n="fitHowTitle">How Personal Fit Works:</strong>
+          <span data-i18n="fitHowText">This tool compares the selected GPA band with campus difficulty labels, then adds lifestyle fit based on major, environment, budget, and campus vibe. These labels are planning references, not admissions predictions.</span>
         </div>
       </section>
 
       <section id="compare" class="page">
         <div class="section-head">
-          <p class="eyebrow">Side-by-side view</p>
-          <h1>Compare Campuses 校区对比</h1>
-          <p class="lead">选择 2-3 所 UC，横向比较位置、强项、难度和适配度。</p>
+          <p class="eyebrow" data-i18n="compareEyebrow">Side-by-side view</p>
+          <h1 class="section-title" data-i18n="compareTitle">Compare Campuses</h1>
+          <p class="lead" data-i18n="compareLead">Select 2-3 UC campuses and compare location, strengths, difficulty, and fit side by side.</p>
         </div>
         <div id="compareChoices" class="choice-grid"></div>
         <div class="actions">
-          <button id="copyCompareButton" type="button">Copy Compare Summary 复制对比总结</button>
+          <button id="copyCompareButton" type="button" data-i18n="copyCompareButton">Copy Compare Summary</button>
         </div>
         <p id="compareCopyStatus" class="copy-status"></p>
         <div id="compareTable" class="compare-table"></div>
@@ -633,41 +696,36 @@ tr:last-child td {
 
       <section id="sources" class="page">
         <div class="section-head">
-          <p class="eyebrow">Read before deciding</p>
-          <h1>Data Sources / Disclaimer 数据来源与免责声明</h1>
+          <p class="eyebrow" data-i18n="sourcesEyebrow">Read before deciding</p>
+          <h1 class="section-title" data-i18n="sourcesTitle">Data Sources / Disclaimer</h1>
         </div>
         <div class="notice large">
-          <p>
+          <p data-i18n="sourceP1">
             This MVP uses prototype reference data first. It is a decision helper, not an official admissions predictor.
-            本 MVP 先使用 prototype reference data，是决策辅助工具，不是官方录取预测器。
           </p>
-          <p>
+          <p data-i18n="sourceP2">
             Overall admit rates and admitted GPA ranges are campus-level references from UC first-year admit data, not major admit rates.
-            总体录取率和录取 GPA 范围是校区层面参考，不是专业录取率。
           </p>
-          <p>
+          <p data-i18n="sourceP3">
             Admitted GPA range is not a guarantee. Minimum GPA requirement is separate from admitted GPA range.
-            录取 GPA 范围不是保证；最低 GPA 要求和录取学生 GPA 范围是两回事。
           </p>
-          <p>
+          <p data-i18n="sourceP4">
             Do not treat rankings, difficulty labels, or career outcomes as exact. 不要把排名、难度标签或就业结果当成精确结论。
           </p>
-          <p>
+          <p data-i18n="sourceP5">
             Students should verify majors, requirements, admit data, costs, and outcomes with official UC campus websites.
-            学生应通过 UC 官方网站核实专业、要求、录取数据、费用和就业信息。
           </p>
-          <p>
+          <p data-i18n="sourceP6">
             Last updated: June 2026. Data should be rechecked before making application decisions.
-            最后更新：2026 年 6 月。做申请决定前请重新核实数据。
           </p>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p><strong>Built by Yuhao Chen.</strong></p>
-      <p>UC Fit Compass is a bilingual UC decision helper prototype for high school students.</p>
-      <p>Data is for reference only. Please verify details with official UC sources.</p>
+      <p><strong data-i18n="footerBuilt">Built by Yuhao Chen.</strong></p>
+      <p data-i18n="footerAbout">UC Fit Compass is a bilingual UC decision helper prototype for high school students.</p>
+      <p data-i18n="footerData">Data is for reference only. Please verify details with official UC sources.</p>
     </footer>
 
     <script>
@@ -866,9 +924,126 @@ const campuses = [
 
 const fields = ["Computer Science", "Engineering", "Business/Economics", "Biology", "Psychology", "Social Science", "Film/Arts", "Environmental Science"];
 
+const programFields = [
+  {
+    field: "Computer Science / Data Science",
+    relatedCampuses: ["UC Berkeley", "UCLA", "UC San Diego", "UC Irvine", "UC Santa Cruz"],
+    examples: [
+      "Computer Science BA/BS examples",
+      "Data Science examples",
+      "Computer Engineering or related computing programs"
+    ],
+    college: "Often in Letters & Science, Engineering, or campus-specific computing schools. 常见于文理学院、工程学院或校区自己的计算相关学院。",
+    degreeType: "BA or BS, depending on campus and program. 可能是 BA 或 BS，取决于校区和项目。",
+    fit: "May fit students who enjoy programming, data, math, product building, AI, or research. 适合喜欢编程、数据、数学、产品开发、AI 或研究的学生。",
+    verify: "Check major availability, college/school, impacted/selective major rules, prerequisites, and whether freshman applicants can apply directly. 核实专业是否开放、所属学院、是否热门/选择性专业、先修课和新生是否能直接申请。",
+    links: [
+      { label: "UC major search", url: "https://admission.universityofcalifornia.edu/campuses-majors/majors/" },
+      { label: "Berkeley EECS / CS", url: "https://eecs.berkeley.edu/academics/undergraduate/" },
+      { label: "UCSD CSE", url: "https://cse.ucsd.edu/undergraduate" }
+    ]
+  },
+  {
+    field: "Business / Economics",
+    relatedCampuses: ["UC Berkeley", "UCLA", "UC Irvine", "UC Davis", "UC Riverside", "UC Santa Cruz", "UC Merced"],
+    examples: [
+      "Business Administration examples",
+      "Economics examples",
+      "Business Economics or Management-related examples"
+    ],
+    college: "Often in business schools, economics departments, or social science divisions. 常见于商学院、经济系或社会科学学院。",
+    degreeType: "BA or BS, depending on campus and program. 可能是 BA 或 BS，取决于校区和项目。",
+    fit: "May fit students interested in markets, business strategy, public policy, analytics, entrepreneurship, or finance. 适合关注市场、商业策略、公共政策、数据分析、创业或金融的学生。",
+    verify: "Check whether the campus offers business, economics, business economics, or management as separate majors, and review prerequisites. 核实该校是否提供商业、经济、商业经济或管理相关专业，以及申请/转专业要求。",
+    links: [
+      { label: "UC major search", url: "https://admission.universityofcalifornia.edu/campuses-majors/majors/" },
+      { label: "Berkeley Haas undergraduate", url: "https://haas.berkeley.edu/undergrad/" },
+      { label: "UCI Paul Merage undergraduate", url: "https://merage.uci.edu/programs/undergraduate/" }
+    ]
+  },
+  {
+    field: "Biology / Pre-health pathway",
+    relatedCampuses: ["UCLA", "UC San Diego", "UC Davis", "UC Irvine", "UC Riverside", "UC Merced"],
+    examples: [
+      "Biological Sciences examples",
+      "Human Biology or Molecular Biology examples",
+      "Pre-health advising and life science pathways"
+    ],
+    college: "Often in biological sciences, life sciences, or letters and science divisions. 常见于生物科学、生命科学或文理学院。",
+    degreeType: "Usually BA or BS depending on campus and program. 通常可能是 BA 或 BS，取决于校区和项目。",
+    fit: "May fit students interested in life science, lab research, public health, clinical exposure, or pre-health planning. 适合关注生命科学、实验室研究、公共健康、临床经历或医学预科规划的学生。",
+    verify: "Check major requirements, lab courses, advising resources, clinical or volunteer opportunities, and medical school prerequisite planning. 核实专业要求、实验课、 advising 资源、临床/志愿机会和医学院先修课规划。",
+    links: [
+      { label: "UC major search", url: "https://admission.universityofcalifornia.edu/campuses-majors/majors/" },
+      { label: "UCLA Life Sciences", url: "https://lifesciences.ucla.edu/undergraduate/" },
+      { label: "UC Davis Biological Sciences", url: "https://biology.ucdavis.edu/undergraduate" }
+    ]
+  },
+  {
+    field: "Engineering",
+    relatedCampuses: ["UC Berkeley", "UCLA", "UC San Diego", "UC Irvine", "UC Davis", "UC Santa Barbara", "UC Riverside", "UC Merced"],
+    examples: [
+      "Mechanical Engineering",
+      "Electrical Engineering",
+      "Computer Engineering",
+      "Civil Engineering",
+      "Bioengineering"
+    ],
+    college: "Often housed in a College or School of Engineering. 通常在工程学院或工程学校。",
+    degreeType: "Usually BS for undergraduate engineering programs. 本科工程项目通常是 BS。",
+    fit: "May fit students who like math, physics, design, building systems, lab work, and solving practical problems. 适合喜欢数学、物理、设计、系统搭建、实验和解决实际问题的学生。",
+    verify: "Check which engineering majors are offered, whether the major is selective or capped, required courses, and change-of-major rules. 核实开设哪些工程专业、是否选择性/受限、必修课和转专业规则。",
+    links: [
+      { label: "UC major search", url: "https://admission.universityofcalifornia.edu/campuses-majors/majors/" },
+      { label: "Berkeley Engineering", url: "https://engineering.berkeley.edu/academics/undergraduate-programs/" },
+      { label: "UCLA Engineering", url: "https://www.seasoasa.ucla.edu/undergraduate-curricular-requirements-and-department-information/" }
+    ]
+  },
+  {
+    field: "Psychology / Cognitive Science",
+    relatedCampuses: ["UCLA", "UC Berkeley", "UC San Diego", "UC Irvine", "UC Davis", "UC Santa Barbara", "UC Santa Cruz", "UC Riverside", "UC Merced"],
+    examples: [
+      "Psychology",
+      "Cognitive Science",
+      "Neuroscience",
+      "Human Development"
+    ],
+    college: "Often in Letters & Science, Social Sciences, or campus-specific divisions. 常见于文理学院、社会科学学院或校区自己的学院结构。",
+    degreeType: "BA or BS, depending on campus and program. 可能是 BA 或 BS，取决于校区和项目。",
+    fit: "May fit students interested in behavior, learning, brain science, research methods, education, health, or technology and humans. 适合关注行为、学习、大脑科学、研究方法、教育、健康或人与科技关系的学生。",
+    verify: "Check whether psychology, cognitive science, neuroscience, or human development are separate majors, and review statistics or lab requirements. 核实这些是否为独立专业，以及统计课、实验课和研究要求。",
+    links: [
+      { label: "UC major search", url: "https://admission.universityofcalifornia.edu/campuses-majors/majors/" },
+      { label: "UCSD Cognitive Science", url: "https://cogsci.ucsd.edu/undergraduates/major/index.html" },
+      { label: "UCLA Psychology", url: "https://www.psych.ucla.edu/undergraduate/" }
+    ]
+  },
+  {
+    field: "Environmental Science / Public Health",
+    relatedCampuses: ["UC Berkeley", "UCLA", "UC Davis", "UC Irvine", "UC San Diego", "UC Santa Barbara", "UC Santa Cruz", "UC Riverside", "UC Merced"],
+    examples: [
+      "Environmental Science",
+      "Environmental Studies",
+      "Public Health",
+      "Global Health",
+      "Sustainability-related programs"
+    ],
+    college: "Often in environmental, public health, social science, biological science, or interdisciplinary schools. 常见于环境、公共健康、社会科学、生物科学或跨学科学院。",
+    degreeType: "BA or BS, depending on campus and program. 可能是 BA 或 BS，取决于校区和项目。",
+    fit: "May fit students who care about climate, sustainability, community health, policy, field research, or science with social impact. 适合关注气候、可持续发展、社区健康、政策、野外研究或社会影响型科学的学生。",
+    verify: "Check whether the program is environmental science, environmental studies, public health, global health, or another related major, and review fieldwork or prerequisite rules. 核实具体专业名称、是否偏科学或政策、野外实践和先修课要求。",
+    links: [
+      { label: "UC major search", url: "https://admission.universityofcalifornia.edu/campuses-majors/majors/" },
+      { label: "Berkeley Public Health", url: "https://publichealth.berkeley.edu/academics/undergraduate/" },
+      { label: "UC Davis Environmental Science", url: "https://environmentalscience.ucdavis.edu/" }
+    ]
+  }
+];
+
 const campusGrid = document.querySelector("#campusGrid");
 const majorSelect = document.querySelector("#majorSelect");
 const majorResults = document.querySelector("#majorResults");
+const programGrid = document.querySelector("#programGrid");
 const fitMajor = document.querySelector("#fitMajor");
 const fitButton = document.querySelector("#fitButton");
 const copyFitButton = document.querySelector("#copyFitButton");
@@ -878,16 +1053,301 @@ const compareChoices = document.querySelector("#compareChoices");
 const copyCompareButton = document.querySelector("#copyCompareButton");
 const compareCopyStatus = document.querySelector("#compareCopyStatus");
 const compareTable = document.querySelector("#compareTable");
+const languageButtons = document.querySelectorAll("[data-lang]");
 
 let currentFitSummary = "";
 let currentCompareSummary = "";
+let currentLanguage = "en";
+
+const translations = {
+  en: {
+    navHome: "Home",
+    navExplorer: "Campus Explorer",
+    navMajor: "Major Finder",
+    navPrograms: "Program Explorer",
+    navFit: "Personal Fit",
+    navCompare: "Compare",
+    navSources: "Disclaimer",
+    heroEyebrow: "University of California decision helper",
+    heroTitle: "Find the UC campus that fits your goals and life.",
+    heroLead: "Compare the 9 undergraduate UC campuses by location, major strengths, admission difficulty reference, career direction, and personal fit.",
+    heroNotice: "This is not an official admissions predictor. Data is prototype reference data. Verify details with official UC sources.",
+    btnExplore: "Explore Campuses",
+    btnMajor: "Find by Major",
+    btnFit: "Personal Fit",
+    heroPanelTitle: "What you can compare",
+    explorerEyebrow: "9 undergraduate UC campuses",
+    explorerTitle: "Campus Explorer",
+    explorerLead: "Each card summarizes location, vibe, strengths, and possible concerns in simple language.",
+    majorEyebrow: "Prototype recommendation",
+    majorTitle: "Major Finder",
+    majorLead: "Choose a field and see UC campuses worth comparing.",
+    majorLabel: "Select a field",
+    programEyebrow: "Prototype program comparison",
+    programTitle: "Program Explorer",
+    programLead: "Compare academic program fields, related UC campuses, example programs, and what to verify before applying.",
+    programNotice: "Program availability, college/school structure, and major requirements can change. Verify every program on official UC campus websites before applying.",
+    fitEyebrow: "Personal fit helper",
+    fitTitle: "Personal Fit Finder",
+    fitLead: "Generate a UC shortlist based on GPA, major, environment, budget, and campus vibe.",
+    fitNotice: "These categories are not admissions predictions. They are planning references for building a UC list.",
+    fitButton: "Generate Fit List",
+    copyFitButton: "Copy My UC Summary",
+    fitHowTitle: "How Personal Fit Works:",
+    fitHowText: "This tool compares the selected GPA band with campus difficulty labels, then adds lifestyle fit based on major, environment, budget, and campus vibe. These labels are planning references, not admissions predictions.",
+    compareEyebrow: "Side-by-side view",
+    compareTitle: "Compare Campuses",
+    compareLead: "Select 2-3 UC campuses and compare location, strengths, difficulty, and fit side by side.",
+    copyCompareButton: "Copy Compare Summary",
+    sourcesEyebrow: "Read before deciding",
+    sourcesTitle: "Data Sources / Disclaimer",
+    sourceP1: "This MVP uses prototype reference data first. It is a decision helper, not an official admissions predictor.",
+    sourceP2: "Overall admit rates and admitted GPA ranges are campus-level references from UC first-year admit data, not major admit rates.",
+    sourceP3: "Admitted GPA range is not a guarantee. Minimum GPA requirement is separate from admitted GPA range.",
+    sourceP4: "Do not treat rankings, difficulty labels, or career outcomes as exact.",
+    sourceP5: "Students should verify majors, requirements, admit data, costs, and outcomes with official UC campus websites.",
+    sourceP6: "Last updated: June 2026. Data should be rechecked before making application decisions.",
+    footerBuilt: "Built by Yuhao Chen.",
+    footerAbout: "UC Fit Compass is a bilingual UC decision helper prototype for high school students.",
+    footerData: "Data is for reference only. Please verify details with official UC sources.",
+    heroItemLocation: "Location",
+    heroItemVibe: "Campus vibe",
+    heroItemStrengths: "Major strengths",
+    heroItemDifficulty: "Admission difficulty",
+    heroItemFit: "Personal fit",
+    labelLocation: "Location",
+    labelStrengths: "Strengths",
+    labelVibe: "Vibe",
+    labelBestFit: "Best fit",
+    labelConcerns: "Concerns",
+    labelMinimumGpa: "Minimum GPA",
+    labelSource: "Source",
+    labelDecisionAdvice: "Decision advice",
+    labelFit: "Fit",
+    labelConcern: "Concern",
+    labelRelatedCampuses: "Related campuses",
+    labelExamplePrograms: "Example programs",
+    labelCollege: "College or school",
+    labelDegreeType: "Degree type",
+    labelWhyFit: "Why it may fit",
+    labelVerify: "Verify before applying",
+    notPredictionTitle: "Not an admissions prediction:",
+    compareSummaryTitle: "Biggest differences:",
+    compareSummaryEnd: "Focus on location, admission difficulty reference, academic strengths, and campus life.",
+    fitGpaLabel: "GPA range",
+    gpaTop: "4.15+ weighted",
+    gpaStrong: "4.00-4.14 weighted",
+    gpaSolid: "3.80-3.99 weighted",
+    gpaBuilding: "Below 3.80 weighted",
+    fitMajorLabel: "Intended major",
+    fitEnvironmentLabel: "Preferred environment",
+    envCity: "Big city",
+    envSuburban: "Suburban and organized",
+    envCollegeTown: "College town",
+    envCoastal: "Coastal",
+    envNature: "Nature and quiet",
+    fitBudgetLabel: "Budget concern",
+    budgetHigh: "High concern",
+    budgetMedium: "Some concern",
+    budgetLow: "Low concern",
+    fitVibeLabel: "Preferred campus vibe",
+    vibeBalanced: "Balanced",
+    vibeCompetitive: "Challenging",
+    vibeSocial: "Social",
+    vibeSupportive: "Supportive",
+    vibeCreative: "Creative",
+    vibeResearch: "Research-focused",
+    gpaRangeNote: "Admitted GPA range is not a guarantee.",
+    costNote: "Estimated cost is a reference only and varies by campus and student.",
+    noMajorRates: "No exact major admit rates are included.",
+    factor: "Factor",
+    rowAdmitRate: "Admit rate",
+    rowGpaRange: "GPA range",
+    rowDifficulty: "Difficulty",
+    rowEstimatedCost: "Estimated cost",
+    fitReach: "Reach",
+    fitTarget: "Target",
+    fitLessSelective: "Less Selective Reference",
+    fitLifestyle: "Lifestyle Fit",
+    fitReachNote: "Higher difficulty than your selected GPA band.",
+    fitTargetNote: "Difficulty is close to your selected GPA band.",
+    fitLessSelectiveNote: "Lower difficulty than your selected GPA band.",
+    fitLifestyleNote: "Best match for major, environment, budget, and vibe preferences.",
+    noPrototypeData: "None from current prototype data",
+    viewDetails: "View Details",
+    hideDetails: "Hide Details",
+    selectCompare: "Select 2-3 campuses to compare.",
+    fitResultNotice: "Reach, Target, and Less Selective Reference are planning labels based on prototype reference data, not official chances.",
+    copied: "Copied.",
+    copyFailed: "Copy failed. Please copy manually.",
+    compareNeedSelection: "Select 2-3 campuses first."
+  },
+  zh: {
+    navHome: "首页",
+    navExplorer: "校区探索",
+    navMajor: "专业匹配",
+    navPrograms: "专业项目",
+    navFit: "个人适配",
+    navCompare: "校区对比",
+    navSources: "免责声明",
+    heroEyebrow: "加州大学选校辅助工具",
+    heroTitle: "找到更适合你的 UC 校区。",
+    heroLead: "从地理位置、专业强项、录取难度参考、职业方向和个人适配度比较 9 所 UC 本科校区。",
+    heroNotice: "这不是官方录取预测工具。数据为原型参考数据，请用 UC 官方来源核实。",
+    btnExplore: "探索校区",
+    btnMajor: "按专业查找",
+    btnFit: "个人适配",
+    heroPanelTitle: "你可以比较什么",
+    explorerEyebrow: "9 所 UC 本科校区",
+    explorerTitle: "校区探索",
+    explorerLead: "每张卡片用简单语言总结位置、气质、强项和可能顾虑。",
+    majorEyebrow: "原型推荐",
+    majorTitle: "专业匹配",
+    majorLead: "选择一个方向，查看值得比较的 UC 校区。",
+    majorLabel: "选择专业方向",
+    programEyebrow: "原型专业项目比较",
+    programTitle: "专业项目探索",
+    programLead: "比较具体专业方向、相关 UC 校区、示例项目和申请前需要核实的内容。",
+    programNotice: "专业是否开放、学院结构和专业要求可能变化。申请前请到 UC 官方网站逐项核实。",
+    fitEyebrow: "个人适配辅助",
+    fitTitle: "个人适配工具",
+    fitLead: "根据 GPA、专业、环境、预算和校园氛围生成 UC 选校参考。",
+    fitNotice: "这些分类不是录取预测，只是帮助你整理 UC 选校清单的参考。",
+    fitButton: "生成适配清单",
+    copyFitButton: "复制我的 UC 总结",
+    fitHowTitle: "个人适配如何工作：",
+    fitHowText: "这个工具会比较你选择的 GPA 档位和校区难度标签，再根据专业、环境、预算和校园氛围加入生活适配参考。这些标签是规划参考，不是录取预测。",
+    compareEyebrow: "横向对比",
+    compareTitle: "校区对比",
+    compareLead: "选择 2-3 所 UC，横向比较位置、强项、难度和适配度。",
+    copyCompareButton: "复制对比总结",
+    sourcesEyebrow: "决定前请阅读",
+    sourcesTitle: "数据来源与免责声明",
+    sourceP1: "本 MVP 使用原型参考数据，是决策辅助工具，不是官方录取预测器。",
+    sourceP2: "总体录取率和录取 GPA 范围是校区层面参考，不是专业录取率。",
+    sourceP3: "录取 GPA 范围不是保证；最低 GPA 要求和录取学生 GPA 范围是两回事。",
+    sourceP4: "不要把排名、难度标签或就业结果当成精确结论。",
+    sourceP5: "学生应通过 UC 官方网站核实专业、要求、录取数据、费用和就业信息。",
+    sourceP6: "最后更新：2026 年 6 月。做申请决定前请重新核实数据。",
+    footerBuilt: "由 Yuhao Chen 制作。",
+    footerAbout: "UC Fit Compass 是面向高中生的双语 UC 选校辅助原型。",
+    footerData: "数据仅供参考。请通过 UC 官方来源核实细节。",
+    heroItemLocation: "地理位置",
+    heroItemVibe: "校园氛围",
+    heroItemStrengths: "专业强项",
+    heroItemDifficulty: "录取难度参考",
+    heroItemFit: "个人适配",
+    labelLocation: "位置",
+    labelStrengths: "强项",
+    labelVibe: "氛围",
+    labelBestFit: "适合",
+    labelConcerns: "顾虑",
+    labelMinimumGpa: "最低 GPA",
+    labelSource: "来源",
+    labelDecisionAdvice: "决策建议",
+    labelFit: "适配",
+    labelConcern: "顾虑",
+    labelRelatedCampuses: "相关校区",
+    labelExamplePrograms: "示例项目",
+    labelCollege: "学院",
+    labelDegreeType: "学位类型",
+    labelWhyFit: "适合原因",
+    labelVerify: "申请前核实",
+    notPredictionTitle: "不是录取预测：",
+    compareSummaryTitle: "主要差异：",
+    compareSummaryEnd: "选择时重点看地理位置、录取难度参考、专业强项和生活氛围。",
+    fitGpaLabel: "GPA 范围",
+    gpaTop: "加权 4.15+",
+    gpaStrong: "加权 4.00-4.14",
+    gpaSolid: "加权 3.80-3.99",
+    gpaBuilding: "加权 3.80 以下",
+    fitMajorLabel: "目标专业",
+    fitEnvironmentLabel: "喜欢的环境",
+    envCity: "大城市",
+    envSuburban: "郊区、安全、有规划",
+    envCollegeTown: "大学城",
+    envCoastal: "海边",
+    envNature: "自然、安静",
+    fitBudgetLabel: "预算压力",
+    budgetHigh: "很在意费用",
+    budgetMedium: "有点在意",
+    budgetLow: "不太在意",
+    fitVibeLabel: "喜欢的校园氛围",
+    vibeBalanced: "平衡",
+    vibeCompetitive: "有挑战",
+    vibeSocial: "社交活跃",
+    vibeSupportive: "支持性强",
+    vibeCreative: "创意自由",
+    vibeResearch: "研究导向",
+    gpaRangeNote: "录取学生 GPA 范围不是录取保证。",
+    costNote: "费用只是参考，会因校区和个人情况变化。",
+    noMajorRates: "不加入精确专业录取率。",
+    factor: "对比项",
+    rowAdmitRate: "录取率",
+    rowGpaRange: "GPA 范围",
+    rowDifficulty: "难度",
+    rowEstimatedCost: "预估费用",
+    fitReach: "冲刺",
+    fitTarget: "匹配",
+    fitLessSelective: "相对低难度参考",
+    fitLifestyle: "生活适配",
+    fitReachNote: "难度高于你选择的 GPA 档位。",
+    fitTargetNote: "难度接近你选择的 GPA 档位。",
+    fitLessSelectiveNote: "难度低于你选择的 GPA 档位。",
+    fitLifestyleNote: "更符合专业、环境、预算和氛围偏好。",
+    noPrototypeData: "当前原型数据暂无",
+    viewDetails: "查看详情",
+    hideDetails: "收起详情",
+    selectCompare: "请选择 2-3 所学校对比。",
+    fitResultNotice: "Reach、Target 和 Less Selective Reference 是基于原型参考数据的规划标签，不是官方录取概率。",
+    copied: "已复制。",
+    copyFailed: "复制失败，请手动复制。",
+    compareNeedSelection: "请先选择 2-3 所学校。"
+  }
+};
+
+function t(key) {
+  if (currentLanguage === "bi") {
+    const english = translations.en[key] || key;
+    const chinese = translations.zh[key] || "";
+    return chinese && chinese !== english ? `${english} / ${chinese}` : english;
+  }
+  return translations[currentLanguage][key] || translations.en[key] || key;
+}
+
+function localizeText(text) {
+  if (typeof text !== "string") return text;
+  if (currentLanguage === "bi") return text;
+  if (text.includes(" / ")) {
+    return currentLanguage === "zh" ? text.split(" / ").slice(1).join(" / ") : text.split(" / ")[0];
+  }
+
+  const chineseIndex = text.search(/[\u4e00-\u9fff]/);
+  if (chineseIndex === -1) return text;
+
+  return currentLanguage === "zh" ? text.slice(chineseIndex).trim() : text.slice(0, chineseIndex).trim();
+}
+
+function localizeList(items) {
+  return items.map((item) => localizeText(item)).join(", ");
+}
+
+function applyLanguage() {
+  document.documentElement.lang = currentLanguage === "zh" ? "zh-CN" : "en";
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    element.textContent = t(element.dataset.i18n);
+  });
+  languageButtons.forEach((button) => {
+    button.classList.toggle("active-language", button.dataset.lang === currentLanguage);
+  });
+}
 
 function renderCampusCards() {
   campusGrid.innerHTML = campuses.map(renderCampusCard).join("");
 }
 
 function getBadge(label, value) {
-  return `<span class="data-badge"><strong>${label}</strong>${value}</span>`;
+  return `<span class="data-badge"><strong>${label}</strong>${localizeText(value)}</span>`;
 }
 
 function shortCost() {
@@ -904,23 +1364,23 @@ function renderCampusCard(campus) {
     <article class="card">
       ${campusImageTag(campus)}
       <h3>${campus.name}</h3>
-      <p class="meta"><strong>Location 位置：</strong>${campus.location}</p>
-      <p class="meta"><strong>Strengths 强项：</strong>${campus.strengths.join(", ")}</p>
+      <p class="meta"><strong>${t("labelLocation")}:</strong> ${localizeText(campus.location)}</p>
+      <p class="meta"><strong>${t("labelStrengths")}:</strong> ${localizeList(campus.strengths)}</p>
       <div class="badge-row">
         ${getBadge("Admit", campus.overallAdmitRate)}
         ${getBadge("GPA", campus.admittedGpaRange)}
         ${getBadge("Cost", shortCost())}
         ${getBadge("Difficulty", campus.difficulty)}
       </div>
-      <button class="details-button" type="button">View Details 查看详情</button>
+      <button class="details-button" type="button">${t("viewDetails")}</button>
       <div class="details-panel hidden">
-        <p class="meta"><strong>Vibe 氛围：</strong>${campus.vibe}</p>
-        <p class="meta"><strong>Best fit 适合：</strong>${campus.fit}</p>
-        <p class="meta"><strong>Concerns 顾虑：</strong>${campus.concerns}</p>
-        <p class="meta"><strong>Minimum GPA 最低 GPA：</strong>${campus.minimumGpaRequirement}</p>
-        <p class="meta mini-note">Admitted GPA range is not a guarantee. 录取学生 GPA 范围不是录取保证。</p>
-        <p class="meta mini-note">Estimated cost is a reference only and varies by campus and student. 费用只是参考，会因校区和个人情况变化。</p>
-        <p class="meta"><strong>Source 来源：</strong>${campus.source}</p>
+        <p class="meta"><strong>${t("labelVibe")}:</strong> ${localizeText(campus.vibe)}</p>
+        <p class="meta"><strong>${t("labelBestFit")}:</strong> ${localizeText(campus.fit)}</p>
+        <p class="meta"><strong>${t("labelConcerns")}:</strong> ${localizeText(campus.concerns)}</p>
+        <p class="meta"><strong>${t("labelMinimumGpa")}:</strong> ${localizeText(campus.minimumGpaRequirement)}</p>
+        <p class="meta mini-note">${t("gpaRangeNote")}</p>
+        <p class="meta mini-note">${t("costNote")}</p>
+        <p class="meta"><strong>${t("labelSource")}:</strong> ${localizeText(campus.source)}</p>
         <div class="link-row">
           <a href="${campus.officialAdmissionsLink}" target="_blank" rel="noreferrer">Official admit data</a>
           <a href="${campus.officialCostLink}" target="_blank" rel="noreferrer">Official cost info</a>
@@ -936,7 +1396,7 @@ function setupDetailsButtons() {
     button.addEventListener("click", () => {
       const panel = button.nextElementSibling;
       const isHidden = panel.classList.toggle("hidden");
-      button.textContent = isHidden ? "View Details 查看详情" : "Hide Details 收起详情";
+      button.textContent = isHidden ? t("viewDetails") : t("hideDetails");
     });
   });
 }
@@ -972,15 +1432,40 @@ function renderMajorResults() {
           ${campusImageTag(campus, "small")}
           <div class="tag">${field}</div>
           <h3>${campus.name}</h3>
-          <p class="meta"><strong>Decision advice 决策建议：</strong>${buildMajorAdvice(campus, field)}</p>
+          <p class="meta"><strong>${t("labelDecisionAdvice")}:</strong> ${localizeText(buildMajorAdvice(campus, field))}</p>
           <div class="badge-row">
             ${getBadge("Admit", campus.overallAdmitRate)}
             ${getBadge("GPA", campus.admittedGpaRange)}
             ${getBadge("Difficulty", campus.difficulty)}
           </div>
-          <p class="meta mini-note">No exact major admit rates yet. 暂不加入专业录取率。</p>
-          <p class="meta">Fit 适配：${campus.fit}</p>
-          <p class="meta">Concern 顾虑：${campus.concerns}</p>
+          <p class="meta mini-note">${t("noMajorRates")}</p>
+          <p class="meta"><strong>${t("labelFit")}:</strong> ${localizeText(campus.fit)}</p>
+          <p class="meta"><strong>${t("labelConcern")}:</strong> ${localizeText(campus.concerns)}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function renderProgramExplorer() {
+  programGrid.innerHTML = programFields
+    .map(
+      (program) => `
+        <article class="card program-card">
+          <div class="tag">Prototype reference</div>
+          <h3>${program.field}</h3>
+          <p class="meta"><strong>${t("labelRelatedCampuses")}:</strong> ${program.relatedCampuses.join(", ")}</p>
+          <p class="meta"><strong>${t("labelExamplePrograms")}:</strong> ${localizeList(program.examples)}</p>
+          <p class="meta"><strong>${t("labelCollege")}:</strong> ${localizeText(program.college)}</p>
+          <p class="meta"><strong>${t("labelDegreeType")}:</strong> ${localizeText(program.degreeType)}</p>
+          <p class="meta"><strong>${t("labelWhyFit")}:</strong> ${localizeText(program.fit)}</p>
+          <p class="meta mini-note"><strong>${t("labelVerify")}:</strong> ${localizeText(program.verify)}</p>
+          <p class="meta mini-note">${t("noMajorRates")}</p>
+          <div class="link-row">
+            ${program.links
+              .map((link) => `<a href="${link.url}" target="_blank" rel="noreferrer">${link.label}</a>`)
+              .join("")}
+          </div>
         </article>
       `
     )
@@ -1028,10 +1513,12 @@ function getCampusMatchScore(campus, preferences) {
 }
 
 function pickCampuses(candidates, count = 3) {
-  return candidates.slice(0, count).map((campus) => campus.name).join(", ") || "None from current prototype data / 当前原型数据暂无";
+  const campusNames = candidates.slice(0, count).map((campus) => campus.name).join(", ");
+  return localizeText(campusNames || t("noPrototypeData"));
 }
 
 function renderFitResults() {
+  fitResults.innerHTML = "";
   const preferences = {
     gpa: document.querySelector("#fitGpa").value,
     major: fitMajor.value,
@@ -1072,15 +1559,14 @@ function renderFitResults() {
 
   fitResults.innerHTML = `
     <div class="notice">
-      <strong>Not an admissions prediction 不是录取预测：</strong>
-      Reach, Target, and Less Selective Reference are planning labels based on prototype reference data, not official chances.
-      这些只是用来整理申请清单的参考标签，不代表官方录取概率。
+      <strong>${t("notPredictionTitle")}</strong>
+      ${t("fitResultNotice")}
     </div>
     <div class="fit-grid">
-      ${renderFitCard("Reach 冲刺", reachText, "Higher difficulty than your selected GPA band. 难度高于你选择的 GPA 档位。")}
-      ${renderFitCard("Target 匹配", targetText, "Difficulty is close to your selected GPA band. 难度接近你选择的 GPA 档位。")}
-      ${renderFitCard("Less Selective Reference 相对低难度参考", lessSelectiveText, "Lower difficulty than your selected GPA band. 难度低于你选择的 GPA 档位。")}
-      ${renderFitCard("Lifestyle Fit 生活适配", lifestyleText, "Best match for major, environment, budget, and vibe preferences. 更符合专业、环境、预算和氛围偏好。")}
+      ${renderFitCard(t("fitReach"), reachText, t("fitReachNote"))}
+      ${renderFitCard(t("fitTarget"), targetText, t("fitTargetNote"))}
+      ${renderFitCard(t("fitLessSelective"), lessSelectiveText, t("fitLessSelectiveNote"))}
+      ${renderFitCard(t("fitLifestyle"), lifestyleText, t("fitLifestyleNote"))}
     </div>
   `;
   copyStatus.textContent = "";
@@ -1111,8 +1597,8 @@ function renderCompareChoices() {
 
 function buildCompareSummary(selected) {
   const names = selected.map((campus) => campus.name).join(", ");
-  const difficulties = [...new Set(selected.map((campus) => campus.difficulty))].join(" vs ");
-  const locations = selected.map((campus) => campus.location.split(" / ")[0]).join(" | ");
+  const difficulties = [...new Set(selected.map((campus) => localizeText(campus.difficulty)))].join(" vs ");
+  const locations = selected.map((campus) => localizeText(campus.location)).join(" | ");
   const allStrengths = [...new Set(selected.flatMap((campus) => campus.strengths))].slice(0, 6).join(", ");
   const summaryText = `${names} differ most in location (${locations}), difficulty (${difficulties}), and academic strengths (${allStrengths}).`;
   currentCompareSummary = [
@@ -1124,9 +1610,9 @@ function buildCompareSummary(selected) {
 
   return `
     <div class="compare-summary">
-      <strong>Biggest differences 主要差异：</strong>
+      <strong>${t("compareSummaryTitle")}</strong>
       ${summaryText}
-      选择时重点看地理位置、录取难度参考、专业强项和生活氛围。
+      ${t("compareSummaryEnd")}
     </div>
   `;
 }
@@ -1138,22 +1624,22 @@ function renderCompareTable() {
   const selected = campuses.filter((campus) => selectedNames.includes(campus.name));
 
   if (selected.length < 2) {
-    compareTable.innerHTML = `<div class="notice">Select 2-3 campuses to compare. 请选择 2-3 所学校对比。</div>`;
+    compareTable.innerHTML = `<div class="notice">${t("selectCompare")}</div>`;
     currentCompareSummary = "";
     compareCopyStatus.textContent = "";
     return;
   }
 
   const rows = [
-    ["Location 位置", "location"],
-    ["Admit rate 录取率", "overallAdmitRate"],
-    ["GPA range GPA 范围", "admittedGpaRange"],
-    ["Difficulty 难度", "difficulty"],
-    ["Estimated cost 预估费用", "estimatedAnnualCost"],
-    ["Strengths 强项", "strengths"],
-    ["Vibe 氛围", "vibe"],
-    ["Best fit 适合", "fit"],
-    ["Concerns 顾虑", "concerns"]
+    [t("labelLocation"), "location"],
+    [t("rowAdmitRate"), "overallAdmitRate"],
+    [t("rowGpaRange"), "admittedGpaRange"],
+    [t("rowDifficulty"), "difficulty"],
+    [t("rowEstimatedCost"), "estimatedAnnualCost"],
+    [t("labelStrengths"), "strengths"],
+    [t("labelVibe"), "vibe"],
+    [t("labelBestFit"), "fit"],
+    [t("labelConcerns"), "concerns"]
   ];
 
   compareTable.innerHTML = `
@@ -1162,7 +1648,7 @@ function renderCompareTable() {
       <table>
         <thead>
           <tr>
-            <th>Factor 对比项</th>
+            <th>${t("factor")}</th>
             ${selected.map((campus) => `<th>${campus.name}</th>`).join("")}
           </tr>
         </thead>
@@ -1174,7 +1660,7 @@ function renderCompareTable() {
                   <th>${label}</th>
                   ${selected
                     .map((campus) => {
-                      const value = Array.isArray(campus[key]) ? campus[key].join(", ") : campus[key];
+                      const value = Array.isArray(campus[key]) ? localizeList(campus[key]) : localizeText(campus[key]);
                       return `<td>${value}</td>`;
                     })
                     .join("")}
@@ -1197,22 +1683,22 @@ copyFitButton.addEventListener("click", async () => {
 
   try {
     await navigator.clipboard.writeText(currentFitSummary);
-    copyStatus.textContent = "Copied. 已复制。";
+    copyStatus.textContent = t("copied");
   } catch (error) {
-    copyStatus.textContent = "Copy failed. 请手动复制结果。";
+    copyStatus.textContent = t("copyFailed");
   }
 });
 copyCompareButton.addEventListener("click", async () => {
   if (!currentCompareSummary) {
-    compareCopyStatus.textContent = "Select 2-3 campuses first. 请先选择 2-3 所学校。";
+    compareCopyStatus.textContent = t("compareNeedSelection");
     return;
   }
 
   try {
     await navigator.clipboard.writeText(currentCompareSummary);
-    compareCopyStatus.textContent = "Copied. 已复制。";
+    compareCopyStatus.textContent = t("copied");
   } catch (error) {
-    compareCopyStatus.textContent = "Copy failed. 请手动复制总结。";
+    compareCopyStatus.textContent = t("copyFailed");
   }
 });
 compareChoices.addEventListener("change", (event) => {
@@ -1222,11 +1708,27 @@ compareChoices.addEventListener("change", (event) => {
   }
   renderCompareTable();
 });
+languageButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    currentLanguage = button.dataset.lang;
+    copyStatus.textContent = "";
+    compareCopyStatus.textContent = "";
+    applyLanguage();
+    renderCampusCards();
+    setupDetailsButtons();
+    renderMajorResults();
+    renderProgramExplorer();
+    renderFitResults();
+    renderCompareTable();
+  });
+});
 
+applyLanguage();
 renderCampusCards();
 setupDetailsButtons();
 renderMajorOptions();
 renderMajorResults();
+renderProgramExplorer();
 renderFitResults();
 renderCompareChoices();
 renderCompareTable();
