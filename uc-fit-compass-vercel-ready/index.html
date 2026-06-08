@@ -1,0 +1,1236 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UC Fit Compass</title>
+    <style>
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #1f2937;
+  background: #f6f8fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  padding: 16px 28px;
+  border-bottom: 1px solid #d9e2ec;
+  background: rgba(246, 248, 251, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.brand,
+nav a,
+.button {
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brand {
+  color: #0f766e;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+nav a {
+  color: #526273;
+}
+
+.page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+.hero {
+  min-height: calc(100vh - 72px);
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #0f766e;
+  font-weight: 900;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 820px;
+  margin-bottom: 16px;
+  font-size: clamp(34px, 7vw, 68px);
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.lead {
+  max-width: 760px;
+  color: #526273;
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.notice,
+.hero-panel,
+.card,
+.compare-card {
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(31, 41, 55, 0.06);
+}
+
+.notice,
+.hero-panel,
+.card,
+.compare-card {
+  padding: 20px;
+}
+
+.notice {
+  color: #425466;
+  line-height: 1.7;
+}
+
+.notice.large p:last-child {
+  margin-bottom: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.button,
+button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 16px;
+  color: #ffffff;
+  background: #0f766e;
+  cursor: pointer;
+}
+
+.secondary {
+  color: #263442;
+  background: #e7eef6;
+}
+
+.hero-panel li {
+  margin: 12px 0;
+  color: #526273;
+}
+
+.section-head {
+  margin-bottom: 24px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.card h3 {
+  margin-bottom: 8px;
+  font-size: 24px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.campus-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  margin: -4px 0 16px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #d9e2ec;
+}
+
+.campus-image.small {
+  margin-bottom: 12px;
+}
+
+.meta {
+  color: #526273;
+  line-height: 1.65;
+}
+
+.mini-note {
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #6b4e16;
+  background: #fff7df;
+  font-size: 14px;
+}
+
+.tag {
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  color: #075e59;
+  background: #e3f7f3;
+  font-weight: 800;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 14px;
+}
+
+.data-badge {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 112px;
+  padding: 9px 10px;
+  border: 1px solid #cfe0ef;
+  border-radius: 8px;
+  color: #263442;
+  background: #f7fbff;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.data-badge strong {
+  color: #0f766e;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.details-button {
+  width: 100%;
+  margin-top: auto;
+}
+
+.details-panel {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #d9e2ec;
+}
+
+.hidden {
+  display: none;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+
+select {
+  width: min(520px, 100%);
+  min-height: 44px;
+  border: 1px solid #cbd8e6;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #ffffff;
+}
+
+.fit-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.fit-form label {
+  display: grid;
+  gap: 8px;
+  font-weight: 800;
+  color: #263442;
+}
+
+.fit-form select {
+  width: 100%;
+}
+
+.fit-results {
+  margin-top: 18px;
+}
+
+.fit-note {
+  margin-top: 18px;
+}
+
+.copy-status {
+  min-height: 24px;
+  margin: 10px 0 0;
+  color: #0f766e;
+  font-weight: 800;
+}
+
+.fit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.fit-card {
+  min-height: 170px;
+  padding: 18px;
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(31, 41, 55, 0.06);
+}
+
+.fit-card h3 {
+  margin-bottom: 10px;
+  color: #0f766e;
+  font-size: 20px;
+}
+
+.fit-card p {
+  color: #263442;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.fit-card span {
+  color: #526273;
+  line-height: 1.55;
+}
+
+.results {
+  margin-top: 18px;
+}
+
+.choice-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.choice-grid label {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid #cbd8e6;
+  border-radius: 999px;
+  background: #ffffff;
+}
+
+.compare-table {
+  width: 100%;
+}
+
+.compare-card h3 {
+  color: #0f766e;
+}
+
+.compare-summary {
+  margin-bottom: 14px;
+  padding: 16px;
+  border: 1px solid #cfe0ef;
+  border-radius: 8px;
+  color: #425466;
+  background: #f7fbff;
+  line-height: 1.7;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 32px rgba(31, 41, 55, 0.06);
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px;
+  border-bottom: 1px solid #e5edf5;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+thead th {
+  color: #0f766e;
+  background: #f0faf8;
+}
+
+tbody th {
+  width: 180px;
+  color: #263442;
+  background: #f8fafc;
+}
+
+tr:last-child th,
+tr:last-child td {
+  border-bottom: 0;
+}
+
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.link-row a {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0 12px;
+  color: #0f766e;
+  background: #e3f7f3;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.site-footer {
+  margin-top: 24px;
+  padding: 28px;
+  border-top: 1px solid #d9e2ec;
+  color: #526273;
+  background: #ffffff;
+  line-height: 1.65;
+}
+
+.site-footer p {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto 6px;
+}
+
+.site-footer p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 880px) {
+  .site-header,
+  .hero {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+  }
+
+  .site-header {
+    flex-direction: column;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .fit-form,
+  .fit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home">UC Fit Compass</a>
+      <nav>
+        <a href="#home">Home 首页</a>
+        <a href="#explorer">Campus Explorer 校区探索</a>
+        <a href="#major">Major Finder 专业匹配</a>
+        <a href="#fit">Personal Fit 个人适配</a>
+        <a href="#compare">Compare 对比</a>
+        <a href="#sources">Disclaimer 免责声明</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="page hero">
+        <div>
+          <p class="eyebrow">University of California decision helper</p>
+          <h1>Find the UC campus that fits your goals and life.</h1>
+          <p class="lead">
+            帮助高中生从地理位置、专业强项、录取难度参考、职业方向和个人适配度比较 9 所 UC 本科校区。
+          </p>
+          <p class="notice">
+            This is not an official admissions predictor. 这不是官方录取预测工具。数据为 prototype reference data，请用 UC 官网核实。
+          </p>
+          <div class="actions">
+            <a class="button" href="#explorer">Explore Campuses</a>
+            <a class="button secondary" href="#major">Find by Major</a>
+            <a class="button secondary" href="#fit">Personal Fit</a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>What you can compare</h2>
+          <ul>
+            <li>Location 地理位置</li>
+            <li>Campus vibe 校园氛围</li>
+            <li>Major strengths 专业强项</li>
+            <li>Admission difficulty 录取难度参考</li>
+            <li>Personal fit 个人适配</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section id="explorer" class="page">
+        <div class="section-head">
+          <p class="eyebrow">9 undergraduate UC campuses</p>
+          <h1>Campus Explorer 校区探索</h1>
+          <p class="lead">每张卡片都用简单语言总结位置、气质、强项和可能顾虑。</p>
+        </div>
+        <div id="campusGrid" class="cards"></div>
+      </section>
+
+      <section id="major" class="page">
+        <div class="section-head">
+          <p class="eyebrow">Prototype recommendation</p>
+          <h1>Major Finder 专业匹配</h1>
+          <p class="lead">选择一个方向，查看比较适合关注的 UC 校区。</p>
+        </div>
+        <label class="input-label" for="majorSelect">Select a field 选择专业方向</label>
+        <select id="majorSelect"></select>
+        <div id="majorResults" class="cards results"></div>
+      </section>
+
+      <section id="fit" class="page">
+        <div class="section-head">
+          <p class="eyebrow">Personal fit helper</p>
+          <h1>Personal Fit Finder 个人适配工具</h1>
+          <p class="lead">输入你的大概背景和偏好，生成 Reach、Target、Less Selective Reference 和 Lifestyle Fit 参考。</p>
+        </div>
+
+        <div class="notice">
+          These categories are not admissions predictions. 这些分类不是录取预测，只是帮助你整理选校清单。
+        </div>
+
+        <div class="fit-form">
+          <label>
+            GPA range GPA 范围
+            <select id="fitGpa">
+              <option value="top">4.15+ weighted / 加权 4.15+</option>
+              <option value="strong">4.00-4.14 weighted / 加权 4.00-4.14</option>
+              <option value="solid">3.80-3.99 weighted / 加权 3.80-3.99</option>
+              <option value="building">Below 3.80 weighted / 加权 3.80 以下</option>
+            </select>
+          </label>
+
+          <label>
+            Intended major 目标专业
+            <select id="fitMajor"></select>
+          </label>
+
+          <label>
+            Preferred environment 喜欢的环境
+            <select id="fitEnvironment">
+              <option value="city">Big city / 大城市</option>
+              <option value="suburban">Suburban and organized / 郊区、安全、有规划</option>
+              <option value="college-town">College town / 大学校城</option>
+              <option value="coastal">Coastal / 海边</option>
+              <option value="nature">Nature and quiet / 自然、安静</option>
+            </select>
+          </label>
+
+          <label>
+            Budget concern 预算压力
+            <select id="fitBudget">
+              <option value="high">High concern / 很在意费用</option>
+              <option value="medium">Some concern / 有点在意</option>
+              <option value="low">Low concern / 不太在意</option>
+            </select>
+          </label>
+
+          <label>
+            Preferred campus vibe 喜欢的校园氛围
+            <select id="fitVibe">
+              <option value="balanced">Balanced / 平衡</option>
+              <option value="competitive">Challenging / 有挑战</option>
+              <option value="social">Social / 社交活跃</option>
+              <option value="supportive">Supportive / 支持性强</option>
+              <option value="creative">Creative / 创意自由</option>
+              <option value="research">Research-focused / 研究导向</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="fitButton" type="button">Generate Fit List 生成适配清单</button>
+          <button id="copyFitButton" class="secondary" type="button">Copy My UC Summary 复制我的 UC 总结</button>
+        </div>
+        <p id="copyStatus" class="copy-status"></p>
+        <div id="fitResults" class="fit-results"></div>
+        <div class="notice fit-note">
+          <strong>How Personal Fit Works：</strong>
+          This tool compares the selected GPA band with campus difficulty labels, then adds lifestyle fit based on major, environment, budget, and campus vibe.
+          These labels are planning references, not admissions predictions.
+        </div>
+      </section>
+
+      <section id="compare" class="page">
+        <div class="section-head">
+          <p class="eyebrow">Side-by-side view</p>
+          <h1>Compare Campuses 校区对比</h1>
+          <p class="lead">选择 2-3 所 UC，横向比较位置、强项、难度和适配度。</p>
+        </div>
+        <div id="compareChoices" class="choice-grid"></div>
+        <div class="actions">
+          <button id="copyCompareButton" type="button">Copy Compare Summary 复制对比总结</button>
+        </div>
+        <p id="compareCopyStatus" class="copy-status"></p>
+        <div id="compareTable" class="compare-table"></div>
+      </section>
+
+      <section id="sources" class="page">
+        <div class="section-head">
+          <p class="eyebrow">Read before deciding</p>
+          <h1>Data Sources / Disclaimer 数据来源与免责声明</h1>
+        </div>
+        <div class="notice large">
+          <p>
+            This MVP uses prototype reference data first. It is a decision helper, not an official admissions predictor.
+            本 MVP 先使用 prototype reference data，是决策辅助工具，不是官方录取预测器。
+          </p>
+          <p>
+            Overall admit rates and admitted GPA ranges are campus-level references from UC first-year admit data, not major admit rates.
+            总体录取率和录取 GPA 范围是校区层面参考，不是专业录取率。
+          </p>
+          <p>
+            Admitted GPA range is not a guarantee. Minimum GPA requirement is separate from admitted GPA range.
+            录取 GPA 范围不是保证；最低 GPA 要求和录取学生 GPA 范围是两回事。
+          </p>
+          <p>
+            Do not treat rankings, difficulty labels, or career outcomes as exact. 不要把排名、难度标签或就业结果当成精确结论。
+          </p>
+          <p>
+            Students should verify majors, requirements, admit data, costs, and outcomes with official UC campus websites.
+            学生应通过 UC 官方网站核实专业、要求、录取数据、费用和就业信息。
+          </p>
+          <p>
+            Last updated: June 2026. Data should be rechecked before making application decisions.
+            最后更新：2026 年 6 月。做申请决定前请重新核实数据。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><strong>Built by Yuhao Chen.</strong></p>
+      <p>UC Fit Compass is a bilingual UC decision helper prototype for high school students.</p>
+      <p>Data is for reference only. Please verify details with official UC sources.</p>
+    </footer>
+
+    <script>
+const minGpaRequirement =
+  "California residents: 3.0 A-G GPA minimum; Nonresidents: 3.4 A-G GPA minimum";
+const estimatedAnnualCost =
+  "Reference only: CA resident on campus about $47k/year; nonresident on campus about $87k/year";
+const officialCostLink =
+  "https://admission.universityofcalifornia.edu/tuition-financial-aid/tuition-cost-of-attendance/";
+
+function placeholderImage(campusName, color) {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+      <rect width="900" height="520" fill="${color}"/>
+      <circle cx="720" cy="90" r="130" fill="rgba(255,255,255,0.16)"/>
+      <circle cx="150" cy="430" r="170" fill="rgba(255,255,255,0.12)"/>
+      <text x="54" y="250" fill="white" font-family="Arial, sans-serif" font-size="58" font-weight="700">${campusName}</text>
+      <text x="58" y="310" fill="rgba(255,255,255,0.82)" font-family="Arial, sans-serif" font-size="28">Campus image placeholder</text>
+    </svg>
+  `;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
+function commonsImage(fileName) {
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(fileName)}`;
+}
+
+function commonsPage(fileName) {
+  return `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(fileName).replaceAll("%20", "_")}`;
+}
+
+const campuses = [
+  {
+    name: "UC Berkeley",
+    campusImage: commonsImage("Uc berkeley campus.jpg"),
+    imageSource: commonsPage("Uc berkeley campus.jpg"),
+    location: "Berkeley, Bay Area / 伯克利，湾区",
+    vibe: "Intense, intellectual, activist / 学术强、节奏快、公共议题活跃",
+    overallAdmitRate: "11.4%",
+    admittedGpaRange: "4.15-4.29",
+    minimumGpaRequirement: minGpaRequirement,
+    estimatedAnnualCost,
+    officialAdmissionsLink: "https://admission.universityofcalifornia.edu/campuses-majors/berkeley/first-year-admit-data.html",
+    officialCostLink,
+    strengths: ["Computer Science", "Engineering", "Business/Economics", "Social Science"],
+    difficulty: "Very high / 很高",
+    fit: "Students who like challenge, research, and city access / 喜欢挑战、研究和城市资源的学生",
+    concerns: "Competitive environment, large classes, housing cost / 竞争强、大课多、住宿贵",
+    source: "UC Admissions Fall 2025; UC Cost 2026-27 average"
+  },
+  {
+    name: "UCLA",
+    campusImage: commonsImage("2019 UCLA Royce Hall and Haines Hall.jpg"),
+    imageSource: commonsPage("2019 UCLA Royce Hall and Haines Hall.jpg"),
+    location: "Los Angeles / 洛杉矶",
+    vibe: "Energetic, social, big-city / 活跃、社交强、大城市资源多",
+    overallAdmitRate: "9.4%",
+    admittedGpaRange: "4.20-4.30",
+    minimumGpaRequirement: minGpaRequirement,
+    estimatedAnnualCost,
+    officialAdmissionsLink: "https://admission.universityofcalifornia.edu/campuses-majors/ucla/first-year-admit-data.html",
+    officialCostLink,
+    strengths: ["Film/Arts", "Biology", "Psychology", "Business/Economics"],
+    difficulty: "Very high / 很高",
+    fit: "Students who want academics plus city opportunities / 想兼顾学术和城市机会的学生",
+    concerns: "Traffic, competition, large campus / 交通拥堵、竞争强、校园大",
+    source: "UC Admissions Fall 2025; UC Cost 2026-27 average"
+  },
+  {
+    name: "UC San Diego",
+    campusImage: commonsImage("UCSD campus (6484576619).jpg"),
+    imageSource: commonsPage("UCSD campus (6484576619).jpg"),
+    location: "La Jolla, San Diego / 圣地亚哥 La Jolla",
+    vibe: "STEM-focused, coastal, research-heavy / STEM 强、海边、研究氛围浓",
+    overallAdmitRate: "28.4%",
+    admittedGpaRange: "4.11-4.28",
+    minimumGpaRequirement: minGpaRequirement,
+    estimatedAnnualCost,
+    officialAdmissionsLink: "https://admission.universityofcalifornia.edu/campuses-majors/san-diego/first-year-admit-data.html",
+    officialCostLink,
+    strengths: ["Computer Science", "Engineering", "Biology", "Psychology"],
+    difficulty: "High / 高",
+    fit: "Students who like STEM, research, and structured academics / 喜欢 STEM、研究和清晰学术路径的学生",
+    concerns: "Social life can feel spread out / 社交可能比较分散",
+    source: "UC Admissions Fall 2025; UC Cost 2026-27 average"
+  },
+  {
+    name: "UC Irvine",
+    campusImage: commonsImage("Aldrich Park, UCI.jpg"),
+    imageSource: commonsPage("Aldrich Park, UCI.jpg"),
+    location: "Irvine, Orange County / 尔湾，橙县",
+    vibe: "Organized, safe, suburban / 规划好、安全、郊区型",
+    overallAdmitRate: "28.7%",
+    admittedGpaRange: "4.04-4.27",
+    minimumGpaRequirement: minGpaRequirement,
+    estimatedAnnualCost,
+    officialAdmissionsLink: "https://admission.universityofcalifornia.edu/campuses-majors/irvine/first-year-admit-data.html",
+    officialCostLink,
+    strengths: ["Computer Science", "Engineering", "Business/Economics", "Biology"],
+    difficulty: "High / 高",
+    fit: "Students who want balance, safety, and career access / 想要平衡、安全和就业资源的学生",
+    concerns: "Less traditional college-town feel / 大学校城氛围较弱",
+    source: "UC Admissions Fall 2025; UC Cost 2026-27 average"
+  },
+  {
+    name: "UC Davis",
+    campusImage: commonsImage("Mrak Hall (UC Davis) Across Lake Spafford.jpg"),
+    imageSource: commonsPage("Mrak Hall (UC Davis) Across Lake Spafford.jpg"),
+    location: "Davis, near Sacramento / 戴维斯，近萨克拉门托",
+    vibe: "Friendly, bike-friendly, college town / 友好、自行车文化、大学城",
+    overallAdmitRate: "44.6%",
+    admittedGpaRange: "4.00-4.26",
+    minimumGpaRequirement: minGpaRequirement,
+    estimatedAnnualCost,
+    officialAdmissionsLink: "https://admission.universityofcalifornia.edu/campuses-majors/davis/first-year-admit-data.html",
+    officialCostLink,
+    strengths: ["Biology", "Environmental Science", "Engineering", "Social Science"],
+    difficulty: "High / 高",
+    fit: "Students who like community, science, and a calmer town / 喜欢社区感、科学和安静环境的学生",
+    concerns: "Smaller city feel / 城市资源不如 LA 或湾区",
+    source: "UC Admissions Fall 2025; UC Cost 2026-27 average"
+  },
+  {
+    name: "UC Santa Barbara",
+    campusImage: commonsImage("UCSB University Center and Storke Tower.jpg"),
+    imageSource: commonsPage("UCSB University Center and Storke Tower.jpg"),
+    location: "Santa Barbara / 圣塔芭芭拉",
+    vibe: "Coastal, social, relaxed but academic / 海边、社交强、轻松但学术不错",
+    overallAdmitRate: "38.3%",
+    admittedGpaRange: "4.09-4.28",
+    minimumGpaRequirement: minGpaRequirement,
+    estimatedAnnualCost,
+    officialAdmissionsLink: "https://admission.universityofcalifornia.edu/campuses-majors/santa-barbara/first-year-admit-data.html",
+    officialCostLink,
+    strengths: ["Environmental Science", "Social Science", "Psychology", "Film/Arts"],
+    difficulty: "High / 高",
+    fit: "Students who want campus life, beach, and academics / 想要校园生活、海边和学术平衡的学生",
+    concerns: "Party reputation, housing pressure / 派对名声、住房压力",
+    source: "UC Admissions Fall 2025; UC Cost 2026-27 average"
+  },
+  {
+    name: "UC Santa Cruz",
+    campusImage: commonsImage("McHenry Library UCSC.jpg"),
+    imageSource: commonsPage("McHenry Library UCSC.jpg"),
+    location: "Santa Cruz / 圣塔克鲁兹",
+    vibe: "Nature, creative, independent / 自然环境强、创意、独立",
+    overallAdmitRate: "72.7%",
+    admittedGpaRange: "3.83-4.20",
+    minimumGpaRequirement: minGpaRequirement,
+    estimatedAnnualCost,
+    officialAdmissionsLink: "https://admission.universityofcalifornia.edu/campuses-majors/santa-cruz/first-year-admit-data.html",
+    officialCostLink,
+    strengths: ["Computer Science", "Environmental Science", "Film/Arts", "Social Science"],
+    difficulty: "Medium-high / 中高",
+    fit: "Students who like nature, creativity, and less traditional campus culture / 喜欢自然、创意和非传统校园文化的学生",
+    concerns: "Hilly campus, limited city scale / 校园坡多、城市规模较小",
+    source: "UC Admissions Fall 2025; UC Cost 2026-27 average"
+  },
+  {
+    name: "UC Riverside",
+    campusImage: commonsImage("Ucr-belltower.jpg"),
+    imageSource: commonsPage("Ucr-belltower.jpg"),
+    location: "Riverside, Inland Empire / 河滨，内陆帝国",
+    vibe: "Supportive, diverse, growing / 支持性强、多元、发展中",
+    overallAdmitRate: "87.1%",
+    admittedGpaRange: "3.65-4.16",
+    minimumGpaRequirement: minGpaRequirement,
+    estimatedAnnualCost,
+    officialAdmissionsLink: "https://admission.universityofcalifornia.edu/campuses-majors/riverside/first-year-admit-data.html",
+    officialCostLink,
+    strengths: ["Biology", "Business/Economics", "Psychology", "Social Science"],
+    difficulty: "Medium / 中等",
+    fit: "Students who want UC access, support, and room to grow / 想要 UC 机会、支持和成长空间的学生",
+    concerns: "Hot weather, less coastal access / 天气热、离海边远",
+    source: "UC Admissions Fall 2025; UC Cost 2026-27 average"
+  },
+  {
+    name: "UC Merced",
+    campusImage: commonsImage("University of California, Merced.jpg"),
+    imageSource: commonsPage("University of California, Merced.jpg"),
+    location: "Merced, Central Valley / 默塞德，加州中央谷",
+    vibe: "Newer, close-knit, opportunity-focused / 较新、小社区感、机会成长型",
+    overallAdmitRate: "95.1%",
+    admittedGpaRange: "3.54-4.15",
+    minimumGpaRequirement: minGpaRequirement,
+    estimatedAnnualCost,
+    officialAdmissionsLink: "https://admission.universityofcalifornia.edu/campuses-majors/merced/first-year-admit-data.html",
+    officialCostLink,
+    strengths: ["Environmental Science", "Engineering", "Biology", "Social Science"],
+    difficulty: "Medium / 中等",
+    fit: "Students who want smaller classes and growth opportunities / 想要小一些环境和成长机会的学生",
+    concerns: "Newer reputation, fewer city resources / 学校较新、城市资源较少",
+    source: "UC Admissions Fall 2025; UC Cost 2026-27 average"
+  }
+];
+
+const fields = ["Computer Science", "Engineering", "Business/Economics", "Biology", "Psychology", "Social Science", "Film/Arts", "Environmental Science"];
+
+const campusGrid = document.querySelector("#campusGrid");
+const majorSelect = document.querySelector("#majorSelect");
+const majorResults = document.querySelector("#majorResults");
+const fitMajor = document.querySelector("#fitMajor");
+const fitButton = document.querySelector("#fitButton");
+const copyFitButton = document.querySelector("#copyFitButton");
+const copyStatus = document.querySelector("#copyStatus");
+const fitResults = document.querySelector("#fitResults");
+const compareChoices = document.querySelector("#compareChoices");
+const copyCompareButton = document.querySelector("#copyCompareButton");
+const compareCopyStatus = document.querySelector("#compareCopyStatus");
+const compareTable = document.querySelector("#compareTable");
+
+let currentFitSummary = "";
+let currentCompareSummary = "";
+
+function renderCampusCards() {
+  campusGrid.innerHTML = campuses.map(renderCampusCard).join("");
+}
+
+function getBadge(label, value) {
+  return `<span class="data-badge"><strong>${label}</strong>${value}</span>`;
+}
+
+function shortCost() {
+  return "CA ~$47k / Nonresident ~$87k";
+}
+
+function campusImageTag(campus, sizeClass = "") {
+  const fallback = placeholderImage(campus.name, "#0f766e");
+  return `<img class="campus-image ${sizeClass}" src="${campus.campusImage}" alt="${campus.name} campus image" onerror="this.onerror=null; this.src='${fallback}'" />`;
+}
+
+function renderCampusCard(campus) {
+  return `
+    <article class="card">
+      ${campusImageTag(campus)}
+      <h3>${campus.name}</h3>
+      <p class="meta"><strong>Location 位置：</strong>${campus.location}</p>
+      <p class="meta"><strong>Strengths 强项：</strong>${campus.strengths.join(", ")}</p>
+      <div class="badge-row">
+        ${getBadge("Admit", campus.overallAdmitRate)}
+        ${getBadge("GPA", campus.admittedGpaRange)}
+        ${getBadge("Cost", shortCost())}
+        ${getBadge("Difficulty", campus.difficulty)}
+      </div>
+      <button class="details-button" type="button">View Details 查看详情</button>
+      <div class="details-panel hidden">
+        <p class="meta"><strong>Vibe 氛围：</strong>${campus.vibe}</p>
+        <p class="meta"><strong>Best fit 适合：</strong>${campus.fit}</p>
+        <p class="meta"><strong>Concerns 顾虑：</strong>${campus.concerns}</p>
+        <p class="meta"><strong>Minimum GPA 最低 GPA：</strong>${campus.minimumGpaRequirement}</p>
+        <p class="meta mini-note">Admitted GPA range is not a guarantee. 录取学生 GPA 范围不是录取保证。</p>
+        <p class="meta mini-note">Estimated cost is a reference only and varies by campus and student. 费用只是参考，会因校区和个人情况变化。</p>
+        <p class="meta"><strong>Source 来源：</strong>${campus.source}</p>
+        <div class="link-row">
+          <a href="${campus.officialAdmissionsLink}" target="_blank" rel="noreferrer">Official admit data</a>
+          <a href="${campus.officialCostLink}" target="_blank" rel="noreferrer">Official cost info</a>
+          <a href="${campus.imageSource}" target="_blank" rel="noreferrer">Image source</a>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function setupDetailsButtons() {
+  document.querySelectorAll(".details-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const panel = button.nextElementSibling;
+      const isHidden = panel.classList.toggle("hidden");
+      button.textContent = isHidden ? "View Details 查看详情" : "Hide Details 收起详情";
+    });
+  });
+}
+
+function buildMajorAdvice(campus, field) {
+  const advice = {
+    "Computer Science": `${campus.name} is worth considering if you want strong tech, research, or software-related opportunities. 对想走科技、研究或软件方向的学生，可以重点比较这所学校。`,
+    Engineering: `${campus.name} may fit students who want applied problem-solving, labs, and project-based learning. 如果你喜欢动手解决问题、实验室和项目学习，可以把它放入候选。`,
+    "Business/Economics": `${campus.name} can be a good option if you want economics, campus recruiting, or nearby internship access. 如果你关注经济、实习和职业资源，可以进一步查专业和社团机会。`,
+    Biology: `${campus.name} is useful to compare if you are thinking about life science, pre-health, or research experience. 如果你考虑生命科学、医学预科或科研经历，可以重点查看课程和实验室。`,
+    Psychology: `${campus.name} may fit students interested in human behavior, research, education, or health-related paths. 如果你关注心理、人类行为、教育或健康相关方向，可以比较课程设置。`,
+    "Social Science": `${campus.name} is worth comparing if you care about policy, society, data, community work, or public service. 如果你关注社会、政策、数据、社区或公共服务，可以把它列为选择。`,
+    "Film/Arts": `${campus.name} may fit students who want creative work, media, performance, or arts communities. 如果你想走创意、媒体、表演或艺术社群，可以查看作品集和课程要求。`,
+    "Environmental Science": `${campus.name} is a strong candidate if you care about climate, ecology, sustainability, or outdoor field work. 如果你关注气候、生态、可持续发展或户外研究，可以优先比较。`
+  };
+
+  return advice[field] || `${campus.name} may be a useful campus to compare for this field.`;
+}
+
+function renderMajorOptions() {
+  majorSelect.innerHTML = fields.map((field) => `<option value="${field}">${field}</option>`).join("");
+  fitMajor.innerHTML = fields.map((field) => `<option value="${field}">${field}</option>`).join("");
+}
+
+function renderMajorResults() {
+  const field = majorSelect.value;
+  const matches = campuses.filter((campus) => campus.strengths.includes(field)).slice(0, 5);
+
+  majorResults.innerHTML = matches
+    .map(
+      (campus) => `
+        <article class="card">
+          ${campusImageTag(campus, "small")}
+          <div class="tag">${field}</div>
+          <h3>${campus.name}</h3>
+          <p class="meta"><strong>Decision advice 决策建议：</strong>${buildMajorAdvice(campus, field)}</p>
+          <div class="badge-row">
+            ${getBadge("Admit", campus.overallAdmitRate)}
+            ${getBadge("GPA", campus.admittedGpaRange)}
+            ${getBadge("Difficulty", campus.difficulty)}
+          </div>
+          <p class="meta mini-note">No exact major admit rates yet. 暂不加入专业录取率。</p>
+          <p class="meta">Fit 适配：${campus.fit}</p>
+          <p class="meta">Concern 顾虑：${campus.concerns}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function getDifficultyScore(campus) {
+  if (campus.difficulty.includes("Very high")) return 4;
+  if (campus.difficulty.includes("High")) return 3;
+  if (campus.difficulty.includes("Medium-high")) return 2;
+  return 1;
+}
+
+function getGpaLevel(value) {
+  const levels = {
+    top: 4,
+    strong: 3,
+    solid: 2,
+    building: 1
+  };
+  return levels[value] || 2;
+}
+
+function getCampusMatchScore(campus, preferences) {
+  let score = 0;
+  const text = `${campus.location} ${campus.vibe} ${campus.fit} ${campus.concerns}`.toLowerCase();
+
+  if (campus.strengths.includes(preferences.major)) score += 3;
+  if (text.includes(preferences.environment)) score += 2;
+  if (preferences.environment === "city" && (text.includes("city") || text.includes("los angeles") || text.includes("bay area"))) score += 2;
+  if (preferences.environment === "coastal" && (text.includes("coastal") || text.includes("beach"))) score += 2;
+  if (preferences.environment === "nature" && text.includes("nature")) score += 2;
+  if (preferences.environment === "college-town" && text.includes("college town")) score += 2;
+  if (preferences.environment === "suburban" && text.includes("suburban")) score += 2;
+
+  if (preferences.vibe === "competitive" && text.includes("challenge")) score += 2;
+  if (preferences.vibe === "social" && text.includes("social")) score += 2;
+  if (preferences.vibe === "supportive" && text.includes("support")) score += 2;
+  if (preferences.vibe === "creative" && text.includes("creative")) score += 2;
+  if (preferences.vibe === "research" && text.includes("research")) score += 2;
+  if (preferences.vibe === "balanced" && (text.includes("balance") || text.includes("friendly"))) score += 2;
+
+  if (preferences.budget === "high" && !text.includes("housing cost") && !text.includes("housing pressure")) score += 1;
+  return score;
+}
+
+function pickCampuses(candidates, count = 3) {
+  return candidates.slice(0, count).map((campus) => campus.name).join(", ") || "None from current prototype data / 当前原型数据暂无";
+}
+
+function renderFitResults() {
+  const preferences = {
+    gpa: document.querySelector("#fitGpa").value,
+    major: fitMajor.value,
+    environment: document.querySelector("#fitEnvironment").value,
+    budget: document.querySelector("#fitBudget").value,
+    vibe: document.querySelector("#fitVibe").value
+  };
+  const gpaLevel = getGpaLevel(preferences.gpa);
+  const scored = campuses
+    .map((campus) => ({
+      ...campus,
+      score: getCampusMatchScore(campus, preferences),
+      difficultyScore: getDifficultyScore(campus)
+    }))
+    .sort((a, b) => b.score - a.score || a.difficultyScore - b.difficultyScore);
+
+  const reach = scored.filter((campus) => campus.difficultyScore > gpaLevel);
+  const target = scored.filter((campus) => campus.difficultyScore === gpaLevel);
+  const lessSelective = scored.filter((campus) => campus.difficultyScore < gpaLevel);
+  const lifestyle = scored.filter((campus) => campus.score >= 3);
+  const reachText = pickCampuses(reach);
+  const targetText = pickCampuses(target);
+  const lessSelectiveText = pickCampuses(lessSelective);
+  const lifestyleText = pickCampuses(lifestyle);
+
+  currentFitSummary = [
+    "UC Fit Compass Summary",
+    "Built by Yuhao Chen",
+    "Goal: Help students compare UC campuses with clearer data and fit logic.",
+    "Data: Prototype reference only. Verify with official UC sources.",
+    "",
+    "These categories are not admissions predictions.",
+    `Reach: ${reachText}`,
+    `Target: ${targetText}`,
+    `Less Selective Reference: ${lessSelectiveText}`,
+    `Lifestyle Fit: ${lifestyleText}`
+  ].join("\n");
+
+  fitResults.innerHTML = `
+    <div class="notice">
+      <strong>Not an admissions prediction 不是录取预测：</strong>
+      Reach, Target, and Less Selective Reference are planning labels based on prototype reference data, not official chances.
+      这些只是用来整理申请清单的参考标签，不代表官方录取概率。
+    </div>
+    <div class="fit-grid">
+      ${renderFitCard("Reach 冲刺", reachText, "Higher difficulty than your selected GPA band. 难度高于你选择的 GPA 档位。")}
+      ${renderFitCard("Target 匹配", targetText, "Difficulty is close to your selected GPA band. 难度接近你选择的 GPA 档位。")}
+      ${renderFitCard("Less Selective Reference 相对低难度参考", lessSelectiveText, "Lower difficulty than your selected GPA band. 难度低于你选择的 GPA 档位。")}
+      ${renderFitCard("Lifestyle Fit 生活适配", lifestyleText, "Best match for major, environment, budget, and vibe preferences. 更符合专业、环境、预算和氛围偏好。")}
+    </div>
+  `;
+  copyStatus.textContent = "";
+}
+
+function renderFitCard(title, schools, note) {
+  return `
+    <article class="fit-card">
+      <h3>${title}</h3>
+      <p>${schools}</p>
+      <span>${note}</span>
+    </article>
+  `;
+}
+
+function renderCompareChoices() {
+  compareChoices.innerHTML = campuses
+    .map(
+      (campus) => `
+        <label>
+          <input type="checkbox" value="${campus.name}" />
+          ${campus.name}
+        </label>
+      `
+    )
+    .join("");
+}
+
+function buildCompareSummary(selected) {
+  const names = selected.map((campus) => campus.name).join(", ");
+  const difficulties = [...new Set(selected.map((campus) => campus.difficulty))].join(" vs ");
+  const locations = selected.map((campus) => campus.location.split(" / ")[0]).join(" | ");
+  const allStrengths = [...new Set(selected.flatMap((campus) => campus.strengths))].slice(0, 6).join(", ");
+  const summaryText = `${names} differ most in location (${locations}), difficulty (${difficulties}), and academic strengths (${allStrengths}).`;
+  currentCompareSummary = [
+    "UC Fit Compass Compare Summary",
+    `Selected campuses: ${names}`,
+    `Biggest differences: ${summaryText}`,
+    "Data: Prototype reference only. Verify with official UC sources."
+  ].join("\n");
+
+  return `
+    <div class="compare-summary">
+      <strong>Biggest differences 主要差异：</strong>
+      ${summaryText}
+      选择时重点看地理位置、录取难度参考、专业强项和生活氛围。
+    </div>
+  `;
+}
+
+function renderCompareTable() {
+  const selectedNames = [...compareChoices.querySelectorAll("input:checked")]
+    .map((input) => input.value)
+    .slice(0, 3);
+  const selected = campuses.filter((campus) => selectedNames.includes(campus.name));
+
+  if (selected.length < 2) {
+    compareTable.innerHTML = `<div class="notice">Select 2-3 campuses to compare. 请选择 2-3 所学校对比。</div>`;
+    currentCompareSummary = "";
+    compareCopyStatus.textContent = "";
+    return;
+  }
+
+  const rows = [
+    ["Location 位置", "location"],
+    ["Admit rate 录取率", "overallAdmitRate"],
+    ["GPA range GPA 范围", "admittedGpaRange"],
+    ["Difficulty 难度", "difficulty"],
+    ["Estimated cost 预估费用", "estimatedAnnualCost"],
+    ["Strengths 强项", "strengths"],
+    ["Vibe 氛围", "vibe"],
+    ["Best fit 适合", "fit"],
+    ["Concerns 顾虑", "concerns"]
+  ];
+
+  compareTable.innerHTML = `
+    ${buildCompareSummary(selected)}
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Factor 对比项</th>
+            ${selected.map((campus) => `<th>${campus.name}</th>`).join("")}
+          </tr>
+        </thead>
+        <tbody>
+          ${rows
+            .map(
+              ([label, key]) => `
+                <tr>
+                  <th>${label}</th>
+                  ${selected
+                    .map((campus) => {
+                      const value = Array.isArray(campus[key]) ? campus[key].join(", ") : campus[key];
+                      return `<td>${value}</td>`;
+                    })
+                    .join("")}
+                </tr>
+              `
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+majorSelect.addEventListener("change", renderMajorResults);
+fitButton.addEventListener("click", renderFitResults);
+copyFitButton.addEventListener("click", async () => {
+  if (!currentFitSummary) {
+    renderFitResults();
+  }
+
+  try {
+    await navigator.clipboard.writeText(currentFitSummary);
+    copyStatus.textContent = "Copied. 已复制。";
+  } catch (error) {
+    copyStatus.textContent = "Copy failed. 请手动复制结果。";
+  }
+});
+copyCompareButton.addEventListener("click", async () => {
+  if (!currentCompareSummary) {
+    compareCopyStatus.textContent = "Select 2-3 campuses first. 请先选择 2-3 所学校。";
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(currentCompareSummary);
+    compareCopyStatus.textContent = "Copied. 已复制。";
+  } catch (error) {
+    compareCopyStatus.textContent = "Copy failed. 请手动复制总结。";
+  }
+});
+compareChoices.addEventListener("change", (event) => {
+  const checkedInputs = compareChoices.querySelectorAll("input:checked");
+  if (checkedInputs.length > 3) {
+    event.target.checked = false;
+  }
+  renderCompareTable();
+});
+
+renderCampusCards();
+setupDetailsButtons();
+renderMajorOptions();
+renderMajorResults();
+renderFitResults();
+renderCompareChoices();
+renderCompareTable();
+
+    </script>
+  </body>
+</html>
